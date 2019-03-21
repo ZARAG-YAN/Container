@@ -1,41 +1,47 @@
 #include <iostream>
 #include "l_list.hpp"
+#include <assert.h>
 
 // constructors.
-l_list::l_list(int item)
+
+/*l_list::l_list(int item)
  : head(nullptr)
  , tail(nullptr)
  , m_size(0)
 {
     head->data = item;
     head->next = NULL;
-    tail->data = head->data;
-    tail->next = NULL;
+    tail = head;
     ++m_size;
+}
+*/
+l_list::l_list()
+{
+    head = nullptr;
+    tail = nullptr;
+    m_size = 0;
 }
 
 l_list::~l_list()
 {
-    tail = NULL;
     node* temp = head->next;
     while (temp) {
         delete head;
-	head = temp;      
+        head = temp;
     }
+    delete head;
 }
 
 //other methods.
 
-int l_list:: get_size() 
+int l_list:: get_size()
 {
     return m_size;
 }
 
 bool l_list::is_empty()
 {
-    if (head == NULL) {
-        return true;
-    } return false;
+    return head == NULL;
 }
 
 void l_list::reverse()
@@ -56,8 +62,7 @@ void l_list::reverse()
 
 void l_list::display()
 {
-    node* temp = new node;
-    temp = head;
+    node* temp = head;
     while (temp != NULL) {
         std::cout << temp->data << " ";
         temp = temp->next;
@@ -65,46 +70,58 @@ void l_list::display()
 }
 //creator and deletion functions.
 
-void l_list::insert_start(const int item)
+
+void l_list::insert_front(const int item)
 {
     node* temp = new node;
-    temp->data = item;
-    temp->next = head;
+    temp -> data = item;
+    temp -> next = head;
     head = temp;
     ++m_size;
+/*
+    if (is_empty()) {
+        head = temp;
+        head-> next = NULL;
+        tail = head;
+        return;
+    }
+    temp -> next = head;
+    head = temp;
+    ++m_size;*/
 }
 
 void l_list::insert_posistion(const int pos, const int item)
-{  
+{
     node* temp = new node;
     node* curr = new node;
-    node* prev = new node;
     curr = head;
+    if (pos > m_size) {
+        std::cout <<"Your input out of range\n";
+    }
     for(int i = 1; i < pos; ++i) {
-        prev = curr;
         curr = curr->next;
     }
-    temp->data = item;
-    prev->next = temp;
-    temp->next = curr;
+    temp -> data = item;
+    temp -> next = curr -> next;
+    curr -> next = temp;
+    ++m_size;
 }
 
-void l_list::insert_end(int item) //push_back()
+void l_list::insert_back(int item) //push_back()
 {
     node* temp = new node;
     temp->data = item;
     temp->next = NULL;
     if (head == NULL) {
-        head = temp;   
-	tail = temp;
-	temp = NULL;
+        head = tail = temp;
+	    temp = NULL;
     } else {
-	tail->next = temp;
-	tail = temp;
+	    tail->next = temp;
+	    tail = temp;
     } ++m_size;
 }
 
-void l_list::delete_start()
+void l_list::delete_front()
 {
     node* temp = new node;
     temp = head;
@@ -119,6 +136,10 @@ void l_list::delete_posistion(const int pos)
     node* prev = new node;
     node* curr = new node;
     curr = head;
+    if (pos > m_size) {
+        std::cout<<"Your input is out of range\n";
+        return;
+    }
     int i = 1;
     while (i < pos) {
         prev = curr;
@@ -129,7 +150,7 @@ void l_list::delete_posistion(const int pos)
     --m_size;
 }
 
-void l_list::delete_end()//pop_back()
+void l_list::delete_back()//pop_back()
 {
     node* prev = new node;
     node* curr = new node;

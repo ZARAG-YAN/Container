@@ -1,24 +1,16 @@
 #include <iostream>
 #include <l_list.hpp>
+//#include <l_list.cpp>
 
 int main()
 {
     l_list list;
-    /*for (int i =0; i < 4; ++i) {
-        list.insert_end(i);    
-    }*/
-    //list.insert_start(4);
-    list.insert_start(78);
+    list.insert_front(444);
+    std::cout <<"aaaaa\n";
+   // list.insert_front(7);
+
     std::cout <<"size = "<<list.get_size() <<"\n";
-    if (list.is_empty()) { 
-        std::cout <<"empty \n";
-    } else {
-        std::cout <<"NOT empty \n";
-    }
-    list.insert_start(7777);
-    //list.insert_start(7);
-    std::cout <<"size = "<<list.get_size() <<"\n";
-    std::cout <<"print ";
+    std::cout <<"bbbbb\n";
     list.display();
 
     return 0;

@@ -24,10 +24,11 @@ l_list::l_list()
 
 l_list::~l_list()
 {
-    node* temp = head->next;
+    node* temp = head;
     while (temp) {
-        delete head;
-        head = temp;
+        head = head -> next;
+        delete temp;
+        temp = head;
     }
     delete head;
 }
@@ -62,6 +63,7 @@ void l_list::reverse()
 
 void l_list::display()
 {
+    std::cout <<"Display ";
     node* temp = head;
     while (temp != NULL) {
         std::cout << temp->data << " ";
@@ -78,16 +80,6 @@ void l_list::insert_front(const int item)
     temp -> next = head;
     head = temp;
     ++m_size;
-/*
-    if (is_empty()) {
-        head = temp;
-        head-> next = NULL;
-        tail = head;
-        return;
-    }
-    temp -> next = head;
-    head = temp;
-    ++m_size;*/
 }
 
 void l_list::insert_posistion(const int pos, const int item)

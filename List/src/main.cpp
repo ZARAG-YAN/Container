@@ -4,14 +4,17 @@
 
 int main()
 {
+    int num = 0;
     l_list list;
-    list.insert_front(444);
-    std::cout <<"aaaaa\n";
-   // list.insert_front(7);
-
+    list.insert_front(1);
+    std::cout <<"Input number \n";
+    std::cin >> num;
+    list.insert_front(num);
+    list.insert_front(3);
+  //  list.insert_back(444);
     std::cout <<"size = "<<list.get_size() <<"\n";
-    std::cout <<"bbbbb\n";
     list.display();
+    std::cout <<" before display\n";
 
     return 0;
 }

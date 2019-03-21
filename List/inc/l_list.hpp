@@ -2,15 +2,14 @@
 #define L_LIST_H
 #include <iostream>
 
+struct node
+{
+    int data;
+    node* next;
+};
 
 class l_list
 {
-    struct node
-    {
-        int data;
-        node* next;
-    };
-
 private:
 	node* head;
 	node* tail;

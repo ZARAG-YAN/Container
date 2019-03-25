@@ -8,7 +8,7 @@ list<T>::list()
 }
 
 template <class T>
-list<T>::list(const list<T>& other)
+list<T>::list(const list& other)
 {
     if (other.head == NULL) {
         head = tail = NULL;
@@ -19,7 +19,7 @@ list<T>::list(const list<T>& other)
 
         node<T>* tmp = other.head->next;
         while (tmp){
-            insert_back(tmp->data);
+            insert_back(tmp.data);
             tmp = tmp->next;
         }
     }
@@ -42,7 +42,7 @@ list<T>::~list()
 // operators
 
 template <class T>
-list<T>& list::operator= (const list<T>& other)
+list<T>& list::operator= (const list& other)
 {
     node<T>* temp = head;
     while (temp) {
@@ -118,7 +118,7 @@ void list<T>::display()
 //creator and deletion functions.
 
 template <class T>
-void list<T>::insert_front(const int item)
+void list<T>::insert_front(const int& item)
 {
     //DONE
     node<T>* temp = new node<T>;
@@ -129,7 +129,7 @@ void list<T>::insert_front(const int item)
 }
 
 template <class T>
-void list<T>::insert_position(const int pos, const <T> item)
+void list<T>::insert_position(const int& pos, const T item)
 {
     //DONE-but remove that position's value.
     node<T>* temp = new node<T>;
@@ -148,7 +148,7 @@ void list<T>::insert_position(const int pos, const <T> item)
 }
 
 template <class T>
-void list<T>::insert_back(T item) //push_back()
+void list<T>::insert_back(const T& item) //push_back()
 {
     //DONE
     node<T>* temp = new node<T>;
@@ -175,7 +175,7 @@ void list<T>::delete_front()
 }
 
 template <class T>
-void list<T>::delete_position(const int pos)
+void list<T>::delete_position(const int& pos)
 {
     //DONE
     node<T>* prev = new node<T>;

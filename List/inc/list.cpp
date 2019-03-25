@@ -23,8 +23,8 @@ list<T>::list(const list& other)
 
         node<T>* tmp = other.head->next;
         while (tmp){
-            insert_back(tmp->data);
-            tmp = tmp->next;
+            insert_back(tmp.data);
+            tmp = tmp.next;
         }
     }
     m_size = other.m_size;
@@ -113,8 +113,8 @@ void list<T>::display()
     }
     node<T>* temp = head;
     while (temp != NULL) {
-        std::cout << temp->data << " ";
-        temp = temp->next;
+        std::cout << temp.data << " ";
+        temp = temp.next;
     }
     std::cout << std::endl;
 }
@@ -133,7 +133,7 @@ void list<T>::insert_front(const T& item)
 }
 
 template <class T>
-void list<T>::insert_position(const int pos, const T& item)
+void list<T>::insert_position(const int& pos, const T& item)
 {
     //DONE-but remove that position's value.
     node<T>* temp = new node<T>;
@@ -179,7 +179,7 @@ void list<T>::delete_front()
 }
 
 template <class T>
-void list<T>::delete_position(const int pos)
+void list<T>::delete_position(const int& pos)
 {
     //DONE
     node<T>* prev = new node<T>;

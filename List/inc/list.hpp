@@ -33,11 +33,11 @@ class list
         //creator and deletion functions.
 
         void insert_front(const T&);//push_front()
-        void insert_position(const int, const T&);
+        void insert_position(const int&, const T&);
         void insert_back(const T&);//push_back()
 
         void delete_front();//pop_front()
-        void delete_position(const int);
+        void delete_position(const int&);
         void delete_back();//pop_back()
 };
 #include "list.tpp"

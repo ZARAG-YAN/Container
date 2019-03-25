@@ -1,30 +1,30 @@
 #include <iostream>
 #include <BTree.hpp>
 
-BT::BT()
+BT<T>::BT()
     : m_root(nullptr)
     , m_size(0)
 {
 }
 
-BT::~BT()
+BT<T>::~BT()
 {
 
 
 }
 
-void BT::insert(int item)
+void BT<T>::insert(T item)
 {
-    inert(node* m_root, item);
+    insert_helper(node<T>* m_root, item);
 }
 
-void BT""insert_helper(node* m_root, int item)
+void BT<T>::insert_helper(node<T>* m_root, T item)
 {
     if (m_root == NULL) {
         m_root -> data = item;
         return;
     }
-    node* node = new node;
+    node<T>* node = new node<T>;
 
     if ( item <= data) {
         insert_helper(m_root -> left, item);
@@ -33,7 +33,7 @@ void BT""insert_helper(node* m_root, int item)
     }
 }
 
-void BT::inorder(node* m_root)
+void BT<T>::inorder(node<T>* m_root)
 {
     if (m_root != NULL) {
         inorder(m_root -> left);
@@ -42,7 +42,7 @@ void BT::inorder(node* m_root)
     }
 }
 
-void BT::preorder(node* m_root)
+void BT<T>::preorder(node<T>* m_root)
 {
     if (m_root != NULL) {
         std::cout << m_root -> data << " ";
@@ -50,7 +50,7 @@ void BT::preorder(node* m_root)
         preorder(m_root -> right);
     }
 }
-void BT::postorder(node* m_root)
+void BT<T>::postorder(node<T>* m_root)
 {
     if (m_root != NULL) {
         postorder(m_root -> left);

@@ -1,5 +1,5 @@
 #include <iostream>
-
+template <typename T>
 struct node
 {
     int data;
@@ -7,20 +7,21 @@ struct node
     node* right;
 };
 
+template <class T>
 class BT
 {
-private:
-    node* m_root;
-    int m_size;
-    void insert_helper(node* root, int item);
-public:
-    BT();
-    BT(const BT& other);
-    ~BT();
-    void insert(int item);
-    void unorder(node*root);
-    void preorder(node*root);
-    void postorder(node*root);
-    void finde(node* root);
+    private:
+        node<T>* m_root;
+        int m_size;
+        void insert_helper(node<T>* root, T item);
+    public:
+        BT();
+        BT(const BT& other);
+        ~BT();
+        void insert(T item);
+        void inorder(node<T>* root);
+        void preorder(node<T>* root);
+        void postorder(node<T>* root);
+        void find(node<T>* root);
 
 };

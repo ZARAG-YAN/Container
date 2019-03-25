@@ -1,21 +1,28 @@
 #include <iostream>
-#include <l_list.hpp>
+#include <list.hpp>
 //#include <l_list.cpp>
 
 int main()
 {
-  //  int num = 0;
-    l_list list;
-    for (int i = 0; i <= 8; ++i) {
-        list.insert_back(i);
+    list<int> l1;
+    list<int> a;
+    //std::cout <<"make l1 copy\n";
+    //a.display();
+    //std::cout <<"your copy result\n";
+    for (int i = 1; i <= 0 ; ++i) {
+        l1.insert_back(i);
     }
-    std::cout <<"siez = "<<list.get_size();
-    list.display();
-    std::cout <<"\ninsert pos\n";
-    list.insert_position(4,55);
-    list.delete_position(4);
-    list.delete_position(4);
-    list.display();
-    std::cout <<"siez = "<<list.get_size();
+        a = l1;
+    a.display();
+    /*std::cout <<"siez = "<<l1.get_size();
+    std::cout << std::endl;
+    std::cout <<"l1.display\n";
+    l1.display();
+    std::cout << std::endl;
+    list b = l1;
+    std::cout <<"b.size = "<< b.get_size();
+    std::cout << std::endl;
+    std::cout<<"display b\n";
+    b.display();*/
     return 0;
 }

@@ -29,11 +29,11 @@ public:
 //creator and deletion functions.
 
 	void insert_front(const int);//push_front()
-	void insert_posistion(const int, const int);
+	void insert_position(const int, const int);
 	void insert_back(const int);//push_back()
 
 	void delete_front();//pop_front()
-	void delete_posistion(const int);
+	void delete_position(const int);
 	void delete_back();//pop_back()
 };
 #endif //L_LIST_H

@@ -6,23 +6,16 @@ int main()
 {
   //  int num = 0;
     l_list list;
-    std::cout <<"Insert numbers\n";
-    for (int i = 0; i < 8; ++i) {
-        list.insert_front(i);
+    for (int i = 0; i <= 8; ++i) {
+        list.insert_back(i);
     }
-    std::cout <<"size = "<<list.get_size() <<"\n";
-    std::cout <<"\n---Delete---";
+    std::cout <<"siez = "<<list.get_size();
     list.display();
-    list.delete_front();
-    list.delete_back();
-    std::cout <<"\n---Delete---\n";
+    std::cout <<"\ninsert pos\n";
+    list.insert_position(4,55);
+    list.delete_position(4);
+    list.delete_position(4);
     list.display();
-    std::cout <<"\nIs_empty  "<< list.is_empty();
-    std::cout <<"\nsize = "<<list.get_size() <<"\n";
-    std::cout <<"Reverse\n";
-    list.reverse();
-    list.display();
-    std::cout <<" before display\n";
-
+    std::cout <<"siez = "<<list.get_size();
     return 0;
 }

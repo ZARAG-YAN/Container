@@ -47,6 +47,7 @@ bool l_list::is_empty()
 
 void l_list::reverse()
 {
+    //DONE
     node* tmp = new node;
     node* curr = new node;
     node* prev = new node;
@@ -63,6 +64,7 @@ void l_list::reverse()
 
 void l_list::display()
 {
+    //DONE
     std::cout <<"\nDisplay ";
     node* temp = head;
     while (temp != NULL) {
@@ -75,6 +77,7 @@ void l_list::display()
 
 void l_list::insert_front(const int item)
 {
+    //DONE
     node* temp = new node;
     temp -> data = item;
     temp -> next = head;
@@ -82,8 +85,9 @@ void l_list::insert_front(const int item)
     ++m_size;
 }
 
-void l_list::insert_posistion(const int pos, const int item)
+void l_list::insert_position(const int pos, const int item)
 {
+    //DONE-but remove that position's value.
     node* temp = new node;
     node* curr = new node;
     curr = head;
@@ -101,16 +105,15 @@ void l_list::insert_posistion(const int pos, const int item)
 
 void l_list::insert_back(int item) //push_back()
 {
-    //TODO
-    std::cout <<"insert_back";
+    //DONE
     node* temp = new node;
-    temp->data = item;
-    temp->next = NULL;
+    temp -> data = item;
+    temp -> next = NULL;
     if (head == NULL) {
         head = tail = temp;
 	    temp = NULL;
     } else {
-	    tail->next = temp;
+	    tail -> next = temp;
 	    tail = temp;
     } ++m_size;
 }
@@ -125,9 +128,9 @@ void l_list::delete_front()
     delete temp;
 }
 
-void l_list::delete_posistion(const int pos)
+void l_list::delete_position(const int pos)
 {
-    //TODO
+    //DONE
     node* prev = new node;
     node* curr = new node;
     curr = head;

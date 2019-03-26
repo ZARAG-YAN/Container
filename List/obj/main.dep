@@ -1,1 +1,0 @@
-obj/main.dep obj/main.o: src/main.cpp inc/list.hpp inc/list.tpp

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "list.hpp"
 #include <assert.h>
-template <class T>
+template <typename T>
 // constructors.
 
 list<T>::list()
@@ -11,7 +11,7 @@ list<T>::list()
     m_size = 0;
 }
 
-template <class T>
+template <typename T>
 list<T>::list(const list& other)
 {
     if (other.head == NULL) {
@@ -31,7 +31,7 @@ list<T>::list(const list& other)
 }
 
 
-template <class T>
+template <typename T>
 list<T>::~list()
 {
     node<T>* temp = head;
@@ -45,8 +45,8 @@ list<T>::~list()
 
 // operators
 
-template <class T>
-list<T>& list::operator= (const list& other)
+template <typename T>
+list<T>& list<T>::operator= (const list& other)
 {
     node<T>* temp = head;
     while (temp) {
@@ -74,22 +74,23 @@ list<T>& list::operator= (const list& other)
 
 //other methods.
 
-template <class T>
+template <typename T>
 int list<T>:: get_size()
 {
     return m_size;
 }
 
-template <class T>
+template <typename T>
 bool list<T>::is_empty()
 {
     return head == NULL;
 }
 
-template <class T>
+template <typename T>
 void list<T>::reverse()
 {
     //DONE
+    std::cout <<"\nReverse: ";
     node<T>* tmp = new node<T>;
     node<T>* curr = new node<T>;
     node<T>* prev = new node<T>;
@@ -104,7 +105,7 @@ void list<T>::reverse()
     head = prev;
 }
 
-template <class T>
+template <typename T>
 void list<T>::display()
 {
     //DONE
@@ -121,8 +122,8 @@ void list<T>::display()
 
 //creator and deletion functions.
 
-template <class T>
-void list<T>::insert_front(const T& item)
+template <typename T>
+void list<T>::insert_front(T item)
 {
     //DONE
     node<T>* temp = new node<T>;
@@ -132,8 +133,8 @@ void list<T>::insert_front(const T& item)
     ++m_size;
 }
 
-template <class T>
-void list<T>::insert_position(const int& pos, const T& item)
+template <typename T>
+void list<T>::insert_position(int pos, T item)
 {
     //DONE-but remove that position's value.
     node<T>* temp = new node<T>;
@@ -151,8 +152,8 @@ void list<T>::insert_position(const int& pos, const T& item)
     ++m_size;
 }
 
-template <class T>
-void list<T>::insert_back(const T& item) //push_back()
+template <typename T>
+void list<T>::insert_back(T item) //push_back()
 {
     //DONE
     node<T>* temp = new node<T>;
@@ -167,7 +168,7 @@ void list<T>::insert_back(const T& item) //push_back()
     } ++m_size;
 }
 
-template <class T>
+template <typename T>
 void list<T>::delete_front()
 {
     //DONE
@@ -178,7 +179,7 @@ void list<T>::delete_front()
     delete temp;
 }
 
-template <class T>
+template <typename T>
 void list<T>::delete_position(const int& pos)
 {
     //DONE
@@ -199,7 +200,7 @@ void list<T>::delete_position(const int& pos)
     --m_size;
 }
 
-template <class T>
+template <typename T>
 void list<T>::delete_back() //pop_back()
 {
     //DONE

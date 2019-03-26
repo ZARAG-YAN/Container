@@ -1,1 +1,0 @@
-obj/list.dep obj/list.o: src/list.cpp inc/list.hpp inc/list.tpp

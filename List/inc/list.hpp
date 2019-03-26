@@ -1,7 +1,7 @@
 #ifndef L_LIST_H
 #define L_LIST_H
 #include <iostream>
-template <class T>
+template <typename T>
 struct node
 {
     T data;
@@ -32,9 +32,9 @@ class list
 
         //creator and deletion functions.
 
-        void insert_front(const T&);//push_front()
-        void insert_position(const int&, const T&);
-        void insert_back(const T&);//push_back()
+        void insert_front(T);//push_front()
+        void insert_position(int, T);
+        void insert_back(T);//push_back()
 
         void delete_front();//pop_front()
         void delete_position(const int&);

@@ -4,7 +4,7 @@
 template <class T>
 struct node
 {
-    <T> data;
+    T data;
     node* next;
 };
 

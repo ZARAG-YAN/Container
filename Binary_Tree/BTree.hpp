@@ -22,11 +22,11 @@ class BT
     friend std::ostream& operator<< (std::ostream& out, const BT<U>& tree);*/
     private:
         node<T>* m_root;
-        void destroy(node<T>* address);
-        void insert_helper(node<T>*& address, T item);
-        void inorder_helper(node<T>* address);
-        void preorder_helper(node<T>* address);
-        void postorder_helper(node<T>* address);
+        void destroy(node<T>* root);
+        void insert_helper(node<T>*& root, T item);
+        void inorder_helper(node<T>* root);
+        void preorder_helper(node<T>* root);
+        void postorder_helper(node<T>* root);
         void find_helper(node<T>*, T);
         void find_parent(node<T>* root, node<T>*& parent, T item);
 
@@ -66,13 +66,13 @@ BT<T>::~BT()
 }
 
 template <typename T>
-void BT<T>::destroy(node<T>* address)
+void BT<T>::destroy(node<T>* root)
 {
-    if (NULL != address) {
-        destroy(address->left);
-        destroy(address->right);
-        delete address;
-        address = NULL;
+    if (NULL != root) {
+        destroy(root->left);
+        destroy(root->right);
+        delete root;
+        root = NULL;
     }
 }
 
@@ -87,28 +87,28 @@ void BT<T>::insert(T item)
 
 
 template <typename T>
-void BT<T>::insert_helper(node<T>*& address, T item)
+void BT<T>::insert_helper(node<T>*& root, T item)
 {
-    if (NULL == address) {
-        address = new node<T>;
-        address->data = item;
+    if (NULL == root) {
+        root = new node<T>;
+        root->data = item;
         return;
     }
-    if (item < address->data) {
-        insert_helper(address->left, item);
+    if (item < root->data) {
+        insert_helper(root->left, item);
     } else {
-        insert_helper(address->right, item);
+        insert_helper(root->right, item);
     }
 }
 
 // Traversal orders.
 template <typename T>
-void BT<T>::inorder_helper(node<T>* address)
+void BT<T>::inorder_helper(node<T>* root)
 {
-    if (NULL != address) {
-        inorder_helper(address-> left);
-        std::cout << address-> data << " ";
-        inorder_helper(address-> right);
+    if (NULL != root) {
+        inorder_helper(root-> left);
+        std::cout << root-> data << " ";
+        inorder_helper(root-> right);
     }
 }
 
@@ -121,12 +121,12 @@ void BT<T>::inorder()
 
 
 template <typename T>
-void BT<T>::preorder_helper(node<T>* address)
+void BT<T>::preorder_helper(node<T>* root)
 {
-    if (NULL != address) {
-        std::cout << address-> data << " ";
-        preorder_helper(address-> left);
-        preorder_helper(address-> right);
+    if (NULL != root) {
+        std::cout << root-> data << " ";
+        preorder_helper(root-> left);
+        preorder_helper(root-> right);
     }
 }
 
@@ -139,12 +139,12 @@ void BT<T>::preorder()
 
 
 template <typename T>
-void BT<T>::postorder_helper(node<T>* address)
+void BT<T>::postorder_helper(node<T>* root)
 {
-    if (NULL != address) {
-        preorder_helper(address-> left);
-        preorder_helper(address-> right);
-        std::cout << address-> data << " ";
+    if (NULL != root) {
+        preorder_helper(root-> left);
+        preorder_helper(root-> right);
+        std::cout << root-> data << " ";
     }
 }
 
@@ -185,6 +185,7 @@ void BT<T>::find(T item)
 template <typename T>
 void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item)
 {
+    parent = root;
     if (NULL == root) {
         std::cout <<item<<" not found:\n";
         return;
@@ -194,11 +195,11 @@ void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item)
         return;
     }
     if (item < root-> data) {
-        m_parent = root;
-        find_helper(root-> left, item);
+	parent = root;
+        find_parent(root-> left, parent, item);
     } else {
-        m_parent = root;
-        find_helper(root-> right, item);
+	parent = root;
+        find_parent(root-> right, parent, item);
     }
 }
 
@@ -206,8 +207,10 @@ template <typename T>
 void BT<T>::p_p(T item)
 {
     find_parent(m_root, m_parent, item);
-    std::cout <<"m_parent of "<< item <<"is equal to "<<*m_parent;
+    std::cout <<"m_parent of "<< item <<" is equal to "<< m_parent->data << std::endl;
 }
+
+
 /*
 template <class U>
 std::ostream& operator<< (std::ostream& out, const BT<U>& tree)

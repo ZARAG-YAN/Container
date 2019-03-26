@@ -15,10 +15,12 @@ int main ()
     std::cout <<"\nCount of Nodes = "<< b.m_count;
     std::cout << std::endl;
 
-    b.find(36);
-    b.find(7);
-
-    b.p_p(36);
+    b.p_p(24);
+    b.p_p(13);
+    b.p_p(27);
+    b.p_p(24);
+    b.p_p(24);
+    
     std::cout <<"\nCount of Nodes = "<< b.m_count;
     std::cout << std::endl;
 

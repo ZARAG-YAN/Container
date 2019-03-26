@@ -5,8 +5,14 @@ template <typename T>
 struct node
 {
     T data;
-    node* left;
-    node* right;
+    node<T>* left;
+    node<T>* right;
+    node()
+     :left(NULL)
+     ,right(NULL)
+    {
+    }
+
 };
 
 template <typename T>
@@ -14,20 +20,20 @@ class BT
 {
     private:
         node<T>* m_root;
-        int m_count;
-        void destroy(node<T>* m_root);
-        node<T>* insert_helper(node<T>* m_root, T item);
-        void inorder_helper(node<T>* m_root);
-        void preorder_helper(node<T>* m_root);
-        void postorder_helper(node<T>* m_root);
-        
+        void destroy(node<T>* address);
+        void insert_helper(node<T>*& address, T item);
+        void inorder_helper(node<T>* address);
+        void preorder_helper(node<T>* address);
+        void postorder_helper(node<T>* address);
+
     public:
-        
+
         // Constructors.
         BT();
         ~BT();
+        int m_count;
 
-	// Traversal.
+	    // Traversal.
         void inorder();
         void preorder();
         void postorder();
@@ -42,7 +48,7 @@ class BT
 // Constructors.
 template <typename T>
 BT<T>::BT()
-    : m_root(nullptr)
+    : m_root(NULL)
     , m_count(0)
 {
 }
@@ -54,13 +60,13 @@ BT<T>::~BT()
 }
 
 template <typename T>
-void BT<T>::destroy(node<T>* m_root)
+void BT<T>::destroy(node<T>* address)
 {
-    if (m_root != NULL) {
-        destroy(m_root->left);
-        destroy(m_root->right);
-        delete m_root;
-        m_root = NULL;
+    if (NULL != address) {
+        destroy(address->left);
+        destroy(address->right);
+        delete address;
+        address = NULL;
     }
 }
 
@@ -68,38 +74,38 @@ void BT<T>::destroy(node<T>* m_root)
 template <typename T>
 void BT<T>::insert(T item)
 {
-    std::cout <<"\nInsert "<< item;
+    std::cout <<"\nInsert  "<< item;
     insert_helper(m_root, item);
     ++m_count;
 }
 
 
 template <typename T>
-node<T>* BT<T>::insert_helper(node<T>* m_root, T item)
+void BT<T>::insert_helper(node<T>*& address, T item)
 {
-    std::cout << "\nInsert helper ";
-    if (m_root == NULL) {
-        m_root->data = item;
-        return m_root;
+    if (NULL == address) {
+        address = new node<T>;
+        address->data = item;
+        return;
     }
-    if (item < m_root->data) {
-        m_root->left = insert_helper(m_root->left, item);
+    if (item < address->data) {
+        insert_helper(address->left, item);
     } else {
-        m_root->right = insert_helper(m_root->right, item);
+        insert_helper(address->right, item);
     }
 }
 
 // Traversal orders.
 template <typename T>
-void BT<T>::inorder_helper(node<T>* m_root)
+void BT<T>::inorder_helper(node<T>* address)
 {
-    std::cout << "\nInorder: ";
-    if (m_root != NULL) {
-        inorder_helper(m_root-> left);
-        std::cout << m_root-> data << " ";
-        inorder_helper(m_root-> right);
+    if (NULL != address) {
+        inorder_helper(address-> left);
+        std::cout << address-> data << " ";
+        inorder_helper(address-> right);
     }
 }
+
 template <typename T>
 void BT<T>::inorder()
 {
@@ -108,30 +114,30 @@ void BT<T>::inorder()
 
 
 template <typename T>
-void BT<T>::preorder_helper(node<T>* m_root)
+void BT<T>::preorder_helper(node<T>* address)
 {
-    std::cout << "\nPreorder: ";
-    if (m_root != NULL) {
-        std::cout << m_root-> data << " ";
-        preorder_helper(m_root-> left);
-        preorder_helper(m_root-> right);
-    }   
+    if (NULL != address) {
+        std::cout << address-> data << " ";
+        preorder_helper(address-> left);
+        preorder_helper(address-> right);
+    }
 }
+
 template <typename T>
 void BT<T>::preorder()
 {
     preorder_helper(m_root);
 }
 
+
 template <typename T>
-void BT<T>::postorder_helper(node<T>* m_root)
+void BT<T>::postorder_helper(node<T>* address)
 {
-    std::cout << "\nPostroder: ";
-    if (m_root != NULL) {
-        postorder_helper(m_root-> left);
-        postorder_helper(m_root-> right);
-        std::cout << m_root-> data << " ";
-    }   
+    if (NULL != m_root) {
+        postorder_helper(address-> left);
+        postorder_helper(address-> right);
+        std::cout << address-> data << " ";
+    }
 }
 
 template <typename T>

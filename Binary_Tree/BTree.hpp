@@ -23,16 +23,19 @@ class BT
     private:
         node<T>* m_root;
         void destroy(node<T>* root);
-        void insert_helper(node<T>*& root, T item);
+        // Traversal.
         void inorder_helper(node<T>* root);
         void preorder_helper(node<T>* root);
         void postorder_helper(node<T>* root);
+        // Other methods.
+        void insert_helper(node<T>*& root, T item);
         void find_helper(node<T>*, T);
         void find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& remove_node);
-        // find minimum or maximum functions.
-        int find_min_helper(node<T>* root);
-        int find_max_helper(node<T>* root);
-
+        // find minimum or maximum data functions.
+        node<T>* find_min_helper(node<T>* root);
+        node<T>* find_max_helper(node<T>* root);
+	// remove tree.
+	void remove_helper(node<T>*, node<T>*, T, node<T>*);
     public:
 
         // Constructors.
@@ -42,7 +45,7 @@ class BT
         node<T>* m_r_node;//memeber_remove_node
         int m_count;
 
-	    // Traversal.
+	// Traversal.
         void inorder();
         void preorder();
         void postorder();
@@ -52,6 +55,7 @@ class BT
         void find(T);
         void find_min();
         void find_max();
+        void remove(T);
         void p_p(T);
 };
 #endif //BTREE_H
@@ -190,22 +194,23 @@ void BT<T>::find(T item)
 
 // fine minimum or maximum functions.
 template <typename T>
-int BT<T>::find_min_helper(node<T>* root)
+node<T>* BT<T>::find_min_helper(node<T>* root)
 {
     if (NULL == root) {
 	std::cout <<"\nTree is empty \n";
-	return -1;
+	return root;
     }
     while (NULL != root-> left) {
 	root = root-> left;
     }
-    return root-> data;
+    return root;
 }
 
 template <typename T>
 void BT<T>::find_min()
 {
-    std::cout <<"\nMinimum data is "<<find_min_helper(m_root);
+    node<T>* tmp = find_min_helper(m_root);
+    std::cout <<"\nMaximum data is "<<tmp->data;
     std::cout << std::endl;
     return;
 }
@@ -213,29 +218,26 @@ void BT<T>::find_min()
 
 
 template <typename T>
-int BT<T>::find_max_helper(node<T>* root)
+node<T>* BT<T>::find_max_helper(node<T>* root)
 {
     if (NULL == root) {
 	std::cout <<"\nTree is empty \n";
-	return -1;
+	return root;
     }
     while (NULL != root-> right) {
 	root = root-> right;
     }
-    return root-> data;
+    return root;
 }
 
 template <typename T>
 void BT<T>::find_max()
 {
-    std::cout <<"\nMaximum data is "<<find_max_helper(m_root);
+    node<T>* tmp = find_max_helper(m_root);
+    std::cout <<"\nMaximum data is "<<tmp->data;
     std::cout << std::endl;
     return;
 }
-
-
-
-
 
 
 template <typename T>
@@ -276,14 +278,63 @@ void BT<T>::p_p(T item)
 }
 
 
-/*
-template <class U>
-std::ostream& operator<< (std::ostream& out, const BT<U>& tree)
+/* template <class U>
+   std::ostream& operator<< (std::ostream& out, const BT<U>& tree)
+   {   out << tree.m_parent;
+       return out; }*/
+
+
+template <typename T>
+void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_node)
 {
-    out << tree.m_parent;
-    return out;
+    std::cout <<"Remove helper\n";
+    if (NULL == root) {
+	std::cout <<"\nTree is empty\n";
+	return;
+    } 
+    find_parent(root, parent, item, r_node);// after call we have m_parent and remove_node
+    // case 1: no child
+    std::cout <<m_parent->data;
+    if (NULL == m_r_node-> left && NULL == m_r_node-> right) {
+	std::cout <<"mtav no child if\n";
+        delete m_r_node;
+        m_r_node = NULL;
+        if (item < m_parent->data) {
+	    m_parent-> left = NULL;
+        } else {
+	    m_parent-> right = NULL;
+	}
+    // case 2: one child
+    } else if (NULL == m_r_node-> left) {
+	std::cout <<"mtav one child if\n";
+        if (item < m_parent->data) {
+	    m_parent-> left = m_r_node-> right;
+        } else {
+	    m_parent-> right = m_r_node-> right;;
+	}
+	delete m_r_node;
+    } else if (NULL == m_r_node-> right) {
+        if (item < m_parent->data) {
+	    m_parent-> left = m_r_node-> left;
+        } else {
+	    m_parent-> right = m_r_node-> left;;
+	}
+	delete m_r_node;
+    // case 3: two child
+    }/* else {
+	node<T> tmp = find_min_helper(m_r_ndoe);	    
+    }*/
 }
-*/
+
+template <typename T>
+void BT<T>::remove(T item)
+{
+    std::cout << "Remove "<< item << std::endl;
+    remove_helper(m_root, m_parent, item, m_r_node);
+    return;
+}
+
+
 
 
 

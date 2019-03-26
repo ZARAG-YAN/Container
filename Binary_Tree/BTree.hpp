@@ -20,11 +20,13 @@ class BT
 {
     private:
         node<T>* m_root;
+        node<T>* m_parent;
         void destroy(node<T>* address);
         void insert_helper(node<T>*& address, T item);
         void inorder_helper(node<T>* address);
         void preorder_helper(node<T>* address);
         void postorder_helper(node<T>* address);
+        void find_parent(node<T>* address, node<T>*& parent, T item);
 
     public:
 
@@ -39,7 +41,7 @@ class BT
         void postorder();
 
         // Other methods.
-        //void find(node<T>* root, T item);
+        // void find(node<T>*, T);
         // void print();
         void insert(T item);
 };
@@ -49,6 +51,7 @@ class BT
 template <typename T>
 BT<T>::BT()
     : m_root(NULL)
+    , m_parent(NULL)
     , m_count(0)
 {
 }
@@ -110,6 +113,7 @@ template <typename T>
 void BT<T>::inorder()
 {
     inorder_helper(m_root);
+    std::cout << std::endl;
 }
 
 
@@ -127,15 +131,16 @@ template <typename T>
 void BT<T>::preorder()
 {
     preorder_helper(m_root);
+    std::cout << std::endl;
 }
 
 
 template <typename T>
 void BT<T>::postorder_helper(node<T>* address)
 {
-    if (NULL != m_root) {
-        postorder_helper(address-> left);
-        postorder_helper(address-> right);
+    if (NULL != address) {
+        preorder_helper(address-> left);
+        preorder_helper(address-> right);
         std::cout << address-> data << " ";
     }
 }
@@ -144,5 +149,26 @@ template <typename T>
 void BT<T>::postorder()
 {
     postorder_helper(m_root);
+    std::cout << std::endl;
 }
+template <typename T>
+void BT<T>::find_parent(node<T>* address, node<T>*& parent, T item)
+{
+    if (NULL == address) {
+        std::cout <<"\nTree is empty\n";
+        return;
+    }
+    if (item < address-> data) {
+        parent = address;
+        address = address-> left;
+    } else {
+        parent = address;
+        address = address-> right;
+    }
+
+}
+
+
+
+
 

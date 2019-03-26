@@ -18,21 +18,24 @@ struct node
 template <typename T>
 class BT
 {
+/*    template <class U>
+    friend std::ostream& operator<< (std::ostream& out, const BT<U>& tree);*/
     private:
         node<T>* m_root;
-        node<T>* m_parent;
         void destroy(node<T>* address);
         void insert_helper(node<T>*& address, T item);
         void inorder_helper(node<T>* address);
         void preorder_helper(node<T>* address);
         void postorder_helper(node<T>* address);
-        void find_parent(node<T>* address, node<T>*& parent, T item);
+        void find_helper(node<T>*, T);
+        void find_parent(node<T>* root, node<T>*& parent, T item);
 
     public:
 
         // Constructors.
         BT();
         ~BT();
+        node<T>* m_parent;
         int m_count;
 
 	    // Traversal.
@@ -41,9 +44,9 @@ class BT
         void postorder();
 
         // Other methods.
-        // void find(node<T>*, T);
-        // void print();
-        void insert(T item);
+        void insert(T);
+        void find(T);
+        void p_p(T);
 };
 #endif //BTREE_H
 
@@ -151,23 +154,68 @@ void BT<T>::postorder()
     postorder_helper(m_root);
     std::cout << std::endl;
 }
+
+
 template <typename T>
-void BT<T>::find_parent(node<T>* address, node<T>*& parent, T item)
+void BT<T>::find_helper(node<T>* root, T item)
 {
-    if (NULL == address) {
-        std::cout <<"\nTree is empty\n";
+    if (NULL == root) {
+        std::cout <<item<<" not found:\n";
         return;
     }
-    if (item < address-> data) {
-        parent = address;
-        address = address-> left;
-    } else {
-        parent = address;
-        address = address-> right;
+    if (item == root-> data) {
+        std::cout <<item <<" found: \n";
+        return;
     }
-
+    if (item < root-> data) {
+        find_helper(root-> left, item);
+    } else {
+        find_helper(root-> right, item);
+    }
 }
 
+
+template <typename T>
+void BT<T>::find(T item)
+{
+    find_helper(m_root, item);
+}
+
+
+template <typename T>
+void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item)
+{
+    if (NULL == root) {
+        std::cout <<item<<" not found:\n";
+        return;
+    }
+    if (item == root-> data) {
+        std::cout <<item <<" found: \n";
+        return;
+    }
+    if (item < root-> data) {
+        m_parent = root;
+        find_helper(root-> left, item);
+    } else {
+        m_parent = root;
+        find_helper(root-> right, item);
+    }
+}
+
+template <typename T>
+void BT<T>::p_p(T item)
+{
+    find_parent(m_root, m_parent, item);
+    std::cout <<"m_parent of "<< item <<"is equal to "<<*m_parent;
+}
+/*
+template <class U>
+std::ostream& operator<< (std::ostream& out, const BT<U>& tree)
+{
+    out << tree.m_parent;
+    return out;
+}
+*/
 
 
 

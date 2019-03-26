@@ -15,14 +15,6 @@ int main()
     std::cout << "\n"<< b.get_capacity();
     std::cout <<" ";
     b.print_vector();
-/*
-    vector<int> c;
-    std::cout <<"c \n";
-    for (int i = 0; i < 5; ++i) {
-        c.push_back();
-    }
-    std::cout << c;
-*/
     std::cout <<"\noperator << ";
     std::cout << b;
     return 0;

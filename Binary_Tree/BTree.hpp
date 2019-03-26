@@ -28,7 +28,10 @@ class BT
         void preorder_helper(node<T>* root);
         void postorder_helper(node<T>* root);
         void find_helper(node<T>*, T);
-        void find_parent(node<T>* root, node<T>*& parent, T item);
+        void find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& remove_node);
+        // find minimum or maximum functions.
+        int find_min_helper(node<T>* root);
+        int find_max_helper(node<T>* root);
 
     public:
 
@@ -36,6 +39,7 @@ class BT
         BT();
         ~BT();
         node<T>* m_parent;
+        node<T>* m_r_node;//memeber_remove_node
         int m_count;
 
 	    // Traversal.
@@ -46,6 +50,8 @@ class BT
         // Other methods.
         void insert(T);
         void find(T);
+        void find_min();
+        void find_max();
         void p_p(T);
 };
 #endif //BTREE_H
@@ -55,6 +61,7 @@ template <typename T>
 BT<T>::BT()
     : m_root(NULL)
     , m_parent(NULL)
+    , m_r_node(NULL)
     , m_count(0)
 {
 }
@@ -181,33 +188,91 @@ void BT<T>::find(T item)
     find_helper(m_root, item);
 }
 
+// fine minimum or maximum functions.
+template <typename T>
+int BT<T>::find_min_helper(node<T>* root)
+{
+    if (NULL == root) {
+	std::cout <<"\nTree is empty \n";
+	return -1;
+    }
+    while (NULL != root-> left) {
+	root = root-> left;
+    }
+    return root-> data;
+}
 
 template <typename T>
-void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item)
+void BT<T>::find_min()
 {
-    parent = root;
+    std::cout <<"\nMinimum data is "<<find_min_helper(m_root);
+    std::cout << std::endl;
+    return;
+}
+
+
+
+template <typename T>
+int BT<T>::find_max_helper(node<T>* root)
+{
+    if (NULL == root) {
+	std::cout <<"\nTree is empty \n";
+	return -1;
+    }
+    while (NULL != root-> right) {
+	root = root-> right;
+    }
+    return root-> data;
+}
+
+template <typename T>
+void BT<T>::find_max()
+{
+    std::cout <<"\nMaximum data is "<<find_max_helper(m_root);
+    std::cout << std::endl;
+    return;
+}
+
+
+
+
+
+
+template <typename T>
+void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& r_node)
+{
+    if (item == m_root->data) {
+        parent = m_root;
+        m_r_node = m_root;
+	return;
+    }
     if (NULL == root) {
         std::cout <<item<<" not found:\n";
         return;
     }
     if (item == root-> data) {
-        std::cout <<item <<" found: \n";
         return;
     }
     if (item < root-> data) {
 	parent = root;
-        find_parent(root-> left, parent, item);
+        find_parent(root-> left, parent, item, r_node);
     } else {
 	parent = root;
-        find_parent(root-> right, parent, item);
+        find_parent(root-> right, parent, item, r_node);
+    }
+    if (item < parent->data) {
+	r_node = parent-> left;
+    } else {
+	r_node = parent-> right;
     }
 }
 
 template <typename T>
 void BT<T>::p_p(T item)
 {
-    find_parent(m_root, m_parent, item);
+    find_parent(m_root, m_parent, item, m_r_node);
     std::cout <<"m_parent of "<< item <<" is equal to "<< m_parent->data << std::endl;
+    std::cout <<"m_r_node "<< item <<" is "<< m_r_node->data << std::endl;
 }
 
 

@@ -291,39 +291,39 @@ void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_nod
     if (NULL == root) {
 	std::cout <<"\nTree is empty\n";
 	return;
-    } 
+    }
     find_parent(root, parent, item, r_node);// after call we have m_parent and remove_node
+
     // case 1: no child
-    std::cout <<m_parent->data;
-    if (NULL == m_r_node-> left && NULL == m_r_node-> right) {
-	std::cout <<"mtav no child if\n";
-        delete m_r_node;
-        m_r_node = NULL;
-        if (item < m_parent->data) {
-	    m_parent-> left = NULL;
+    if (NULL == r_node-> left && NULL == r_node-> right) {
+        delete r_node;
+        --m_count;
+        r_node = NULL;
+        if (item < parent->data) {
+	    parent-> left = NULL;
         } else {
-	    m_parent-> right = NULL;
+	    parent-> right = NULL;
 	}
     // case 2: one child
-    } else if (NULL == m_r_node-> left) {
-	std::cout <<"mtav one child if\n";
-        if (item < m_parent->data) {
-	    m_parent-> left = m_r_node-> right;
+    } else if (NULL == r_node-> left) {
+        if (item < parent->data) {
+	    parent-> left = r_node-> right;
         } else {
-	    m_parent-> right = m_r_node-> right;;
+	    parent-> right = r_node-> right;;
 	}
-	delete m_r_node;
-    } else if (NULL == m_r_node-> right) {
-        if (item < m_parent->data) {
-	    m_parent-> left = m_r_node-> left;
+	delete r_node;
+    } else if (NULL == r_node-> right) {
+        if (item < parent->data) {
+	    parent-> left = r_node-> left;
         } else {
-	    m_parent-> right = m_r_node-> left;;
+	    parent-> right = r_node-> left;;
 	}
-	delete m_r_node;
+	delete r_node;
+    --m_count;
     // case 3: two child
-    }/* else {
-	node<T> tmp = find_min_helper(m_r_ndoe);	    
-    }*/
+    } else {
+	node<T>* tmp = find_min_helper(r_node);
+    }
 }
 
 template <typename T>

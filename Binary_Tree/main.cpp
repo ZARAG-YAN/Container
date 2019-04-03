@@ -7,23 +7,21 @@ int main ()
 {
     BT<int> b;
    // srand(time(0));
-    for (int i = 0; i <= 8; ++i) {
-        int n = rand() % 40 + 1;
+    for (int i = 0; i <= 10; ++i) {
+        int n = rand() % 60 + 1;
         b.insert(n);
     }
-    b.insert(14);
-    b.insert(19);
-    b.insert(6);
     std::cout << std::endl;
-    std::cout <<"\nCount of Nodes = "<< b.m_count;
+    std::cout <<"\nCount of nodes = "<< b.m_count;
     std::cout << std::endl;
     std::cout <<"\nInorder: ";
     b.inorder();
     std::cout << std::endl;
 
-    b.remove(24);
+    //b.remove(44);
+    b.remove(56);
 
-    std::cout <<"\nCount of Nodes = "<< b.m_count;
+    std::cout <<"\nCount of nodes = "<< b.m_count;
     std::cout << std::endl;
 
 

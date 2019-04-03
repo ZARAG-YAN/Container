@@ -18,8 +18,6 @@ struct node
 template <typename T>
 class BT
 {
-/*    template <class U>
-    friend std::ostream& operator<< (std::ostream& out, const BT<U>& tree);*/
     private:
         node<T>* m_root;
         void destroy(node<T>* root);
@@ -290,11 +288,6 @@ void BT<T>::p_p(T item)
 }
 
 
-/* template <class U>
-   std::ostream& operator<< (std::ostream& out, const BT<U>& tree)
-   {   out << tree.m_parent;
-       return out; }*/
-
 
 template <typename T>
 void BT<T>::remove_root(node<T>* root, node<T>* parent)
@@ -305,6 +298,7 @@ void BT<T>::remove_root(node<T>* root, node<T>* parent)
         node<T>* tmp = root->left;
         delete root;
         root = tmp;
+        --m_count;
         return;
     }
     if (NULL == root->right) {
@@ -312,30 +306,28 @@ void BT<T>::remove_root(node<T>* root, node<T>* parent)
         node<T>* tmp = root->right;
         delete root;
         root = tmp;
+        --m_count;
         return;
     }
-    std::cout <<"1 have one child;\n";
+    node<T>* max = left_right(root->left);
+    if (max == root->left && NULL == max->right) {
+        std::cout <<"\nare the same\n";
+        max->right = root->right;
+        delete root;
+        root = max;
+        return ;
+    }
     node<T>* tmp_l = root->left;
     node<T>* tmp_r = root->right;
-    node<T>* tmp = left_right(root->left);
-
-    //node<T>* root_parent = new node<T>;
-    //root_parent->right = root;
-    //root_parent->data = root->data - 1;
-
-    find_parent(root, parent, tmp->data, tmp);
-    parent->left = NULL;
-
-    tmp->left = tmp_l;
-    std::cout <<"9;\n";
-    tmp->right = tmp_r;
-    std::cout <<"10;\n";
-    //root_parent = tmp;
-    std::cout <<"before delete;\n";
+    find_parent(root, parent, max->data, m_r_node);
+    parent->right = max->left;
+    max->left = parent;
+    max->right = tmp_r;
+    max->left = tmp_l;
     delete root;
-    m_root = tmp;
-    std::cout <<"after delete;\n";
+    root = max;
     --m_count;
+    return;
 }
 
 
@@ -355,8 +347,8 @@ void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_nod
     // case 1: no child
     if (NULL == r_node-> left && NULL == r_node-> right) {
         delete r_node;
-        --m_count;
         r_node = NULL;
+        --m_count;
         if (item < parent->data) {
 	        parent-> left = NULL;
         } else {
@@ -367,28 +359,31 @@ void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_nod
         if (item < parent->data) {
 	        parent-> left = r_node-> right;
         } else {
-	        parent-> right = r_node-> right;;
+	        parent-> right = r_node-> right;
 	}
 	delete r_node;
+    r_node = NULL;
+    --m_count;
     } else if (NULL == r_node-> right) {
         if (item < parent->data) {
 	        parent-> left = r_node-> left;
         } else {
-	        parent-> right = r_node-> left;;
+	        parent-> right = r_node-> left;
 	}
 	delete r_node;
+    r_node = NULL;
     --m_count;
     // case 3: two child
     } else {
         node<T>* tmp = left_right(r_node->left);
         if (r_node->data < parent->data) {
             parent->left = tmp;
-
         } else {
             parent->right = tmp;
         }
         tmp-> right = r_node->right;
         delete r_node;
+        r_node = NULL;
         --m_count;
         return ;
     }

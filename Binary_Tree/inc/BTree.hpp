@@ -20,6 +20,7 @@ class BT
 {
     private:
         node<T>* m_root;
+        //for destructor. It deleted tree recursive.
         void destroy(node<T>* root);
         
         // Traversal.
@@ -28,17 +29,24 @@ class BT
         void postorder_helper(node<T>* root);
         
         // Other methods.
-        void insert_helper(node<T>*& root, T item);
+            // Insert_helper get first argument for root, second for
+            // insert/find value. 
+        void insert_helper(node<T>*&, T);
         void find_helper(node<T>*, T);
-        void find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& remove_node);
+            //For find remove node's parent.
+        void find_parent(node<T>*, node<T>*&, T, node<T>*&);
 
-        // find minimum or maximum data functions.
+        // find minimum or maximum item's node in tree.
         node<T>* find_min_helper(node<T>* root);
         node<T>* find_max_helper(node<T>* root);
         node<T>* left_right(node<T>* root);
         
-        // remove.
+        // Remove node methods..
+            // remove_root get two arguments.First for root, second for parent.
         void remove_root(node<T>*, node<T>*);
+            // first argument for root, second for parent, 
+            // third for find node with T type value,
+            // fourth for remove node.
         void remove_helper(node<T>*, node<T>*, T, node<T>*);
 
     public:
@@ -47,7 +55,7 @@ class BT
         BT();
         ~BT();
         node<T>* m_parent;
-        node<T>* m_r_node;//memeber_remove_node
+        node<T>* m_r_node;//member_remove_node
         int m_count;
 
 	    // Traversal.
@@ -250,6 +258,7 @@ node<T>* BT<T>::left_right(node<T>* root)
         return root;
     }
     left_right(root-> right);
+    return root;
 }
 
 

@@ -12,18 +12,19 @@ int main ()
         b.insert(n);
     }
     std::cout << std::endl;
-    std::cout <<"\nCount of nodes = "<< b.m_count;
-    std::cout << std::endl;
+    std::cout <<"\nCount of nodes = "<< b.m_count << std::endl;
     std::cout <<"\nInorder: ";
     b.inorder();
     std::cout << std::endl;
 
-    //b.remove(44);
-    b.remove(56);
+    b.remove(44);
+    std::cout <<"Count of nodes = "<< b.m_count << std::endl;
 
-    std::cout <<"\nCount of nodes = "<< b.m_count;
-    std::cout << std::endl;
+    b.remove(13);
+    std::cout <<"Count of nodes = "<< b.m_count << std::endl;
 
+    b.insert(44);
+    std::cout <<"Count of nodes = "<< b.m_count << std::endl;
 
     std::cout <<"\nInorder: ";
     b.inorder();

@@ -8,8 +8,8 @@ struct node
     node<T>* left;
     node<T>* right;
     node()
-     :left(NULL)
-     ,right(NULL)
+        :left(NULL)
+         ,right(NULL)
     {
     }
 
@@ -20,33 +20,34 @@ class BT
 {
     private:
         node<T>* m_root;
+
         //for destructor. It deleted tree recursive.
         void destroy(node<T>* root);
-        
+
         // Traversal.
         void inorder_helper(node<T>* root);
         void preorder_helper(node<T>* root);
         void postorder_helper(node<T>* root);
-        
+
         // Other methods.
-            // Insert_helper get first argument for root, second for
-            // insert/find value. 
+        // Insert_helper get first argument for root, second for
+        // insert/find value.
         void insert_helper(node<T>*&, T);
         void find_helper(node<T>*, T);
-            //For find remove node's parent.
+        //For find remove node's parent.
         void find_parent(node<T>*, node<T>*&, T, node<T>*&);
 
         // find minimum or maximum item's node in tree.
         node<T>* find_min_helper(node<T>* root);
         node<T>* find_max_helper(node<T>* root);
         node<T>* left_right(node<T>* root);
-        
+
         // Remove node methods..
-            // remove_root get two arguments.First for root, second for parent.
+        // remove_root get two arguments.First for root, second for parent.
         void remove_root(node<T>*, node<T>*);
-            // first argument for root, second for parent, 
-            // third for find node with T type value,
-            // fourth for remove node.
+        // first argument for root, second for parent,
+        // third for find node with T type value,
+        // fourth for remove node.
         void remove_helper(node<T>*, node<T>*, T, node<T>*);
 
     public:
@@ -58,7 +59,7 @@ class BT
         node<T>* m_r_node;//member_remove_node
         int m_count;
 
-	    // Traversal.
+        // Traversal.
         void inorder();
         void preorder();
         void postorder();
@@ -69,12 +70,12 @@ class BT
         void find_min();
         void find_max();
         void remove(T);
-        //void print_parent(T);
+        void print_parent(T);
 };
 #endif //BTREE_H
 
 // Constructors.
-template <typename T>
+    template <typename T>
 BT<T>::BT()
     : m_root(NULL)
     , m_parent(NULL)
@@ -83,13 +84,13 @@ BT<T>::BT()
 {
 }
 
-template <typename T>
+    template <typename T>
 BT<T>::~BT()
 {
     destroy(m_root);
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::destroy(node<T>* root)
 {
     if (NULL != root) {
@@ -101,7 +102,7 @@ void BT<T>::destroy(node<T>* root)
 }
 
 // Insertions.
-template <typename T>
+    template <typename T>
 void BT<T>::insert(T item)
 {
     std::cout <<"\nInsert  "<< item;
@@ -109,7 +110,7 @@ void BT<T>::insert(T item)
     ++m_count;
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::insert_helper(node<T>*& root, T item)
 {
     if (NULL == root) {
@@ -126,7 +127,7 @@ void BT<T>::insert_helper(node<T>*& root, T item)
 
 
 // Traversal orders.
-template <typename T>
+    template <typename T>
 void BT<T>::inorder_helper(node<T>* root)
 {
     if (NULL != root) {
@@ -136,7 +137,7 @@ void BT<T>::inorder_helper(node<T>* root)
     }
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::inorder()
 {
     inorder_helper(m_root);
@@ -144,7 +145,7 @@ void BT<T>::inorder()
 }
 
 
-template <typename T>
+    template <typename T>
 void BT<T>::preorder_helper(node<T>* root)
 {
     if (NULL != root) {
@@ -154,7 +155,7 @@ void BT<T>::preorder_helper(node<T>* root)
     }
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::preorder()
 {
     preorder_helper(m_root);
@@ -162,7 +163,7 @@ void BT<T>::preorder()
 }
 
 
-template <typename T>
+    template <typename T>
 void BT<T>::postorder_helper(node<T>* root)
 {
     if (NULL != root) {
@@ -172,7 +173,7 @@ void BT<T>::postorder_helper(node<T>* root)
     }
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::postorder()
 {
     postorder_helper(m_root);
@@ -180,7 +181,7 @@ void BT<T>::postorder()
 }
 
 //Other methods.
-template <typename T>
+    template <typename T>
 void BT<T>::find_helper(node<T>* root, T item)
 {
     if (NULL == root) {
@@ -199,27 +200,27 @@ void BT<T>::find_helper(node<T>* root, T item)
 }
 
 
-template <typename T>
+    template <typename T>
 void BT<T>::find(T item)
 {
     find_helper(m_root, item);
 }
 
 // find minimum or maximum functions.
-template <typename T>
+    template <typename T>
 node<T>* BT<T>::find_min_helper(node<T>* root)
 {
     if (NULL == root) {
-	    std::cout <<"\nTree is empty \n";
-	    return root;
+        std::cout <<"\nTree is empty \n";
+        return root;
     }
     while (NULL != root-> left) {
-	    root = root->left;
+        root = root->left;
     }
     return root;
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::find_min()
 {
     node<T>* tmp = find_min_helper(m_root);
@@ -228,20 +229,20 @@ void BT<T>::find_min()
     return;
 }
 
-template <typename T>
+    template <typename T>
 node<T>* BT<T>::find_max_helper(node<T>* root)
 {
     if (NULL == root) {
-	    std::cout <<"\nTree is empty \n";
-	    return root;
+        std::cout <<"\nTree is empty \n";
+        return root;
     }
     while (NULL != root-> right) {
-	    root = root-> right;
+        root = root-> right;
     }
     return root;
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::find_max()
 {
     node<T>* tmp = find_max_helper(m_root);
@@ -251,7 +252,7 @@ void BT<T>::find_max()
 }
 
 
-template <typename T>
+    template <typename T>
 node<T>* BT<T>::left_right(node<T>* root)
 {
     if (NULL == root-> right) {
@@ -262,13 +263,13 @@ node<T>* BT<T>::left_right(node<T>* root)
 }
 
 
-template <typename T>
+    template <typename T>
 void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& r_node)
 {
     if (item == m_root->data) {
         parent = m_root;
         m_r_node = m_root;
-	    return;
+        return;
     }
     if (NULL == root) {
         std::cout <<item<<" not found:\n";
@@ -278,31 +279,30 @@ void BT<T>::find_parent(node<T>* root, node<T>*& parent, T item, node<T>*& r_nod
         return;
     }
     if (item < root-> data) {
-	    parent = root;
+        parent = root;
         find_parent(root-> left, parent, item, r_node);
     } else {
-	    parent = root;
+        parent = root;
         find_parent(root-> right, parent, item, r_node);
     }
     if (item < parent->data) {
-	    r_node = parent-> left;
+        r_node = parent-> left;
     } else {
-	    r_node = parent-> right;
+        r_node = parent-> right;
     }
 }
 
-/*
-template <typename T>
-void BT<T>::print_parent(T item)
-{
-    find_parent(m_root, m_parent, item, m_r_node);
-    std::cout <<"m_parent of "<< item <<" is equal to "<< m_parent->data << std::endl;
-    std::cout <<"m_r_node "<< item <<" is "<< m_r_node->data << std::endl;
-}
-*/
+
+   template <typename T>
+   void BT<T>::print_parent(T item)
+   {
+   find_parent(m_root, m_parent, item, m_r_node);
+   std::cout <<"\nm_parent of "<< item <<" is equal to "<< m_parent->data << std::endl;
+   //std::cout <<"m_r_node "<< item <<" is "<< m_r_node->data << std::endl;
+   }
 
 //remove methods.
-template <typename T>
+    template <typename T>
 void BT<T>::remove_root(node<T>* root, node<T>* parent)
 {
     std::cout <<"\nRemove Root \n";
@@ -344,12 +344,12 @@ void BT<T>::remove_root(node<T>* root, node<T>* parent)
 }
 
 
-template <typename T>
+    template <typename T>
 void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_node)
 {
     if (NULL == root) {
-	    std::cout <<"\nTree is empty\n";
-	    return;
+        std::cout <<"\nTree is empty\n";
+        return;
     }
     if (item == root->data) {
         remove_root(root, parent);
@@ -363,30 +363,30 @@ void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_nod
         r_node = NULL;
         --m_count;
         if (item < parent->data) {
-	        parent-> left = NULL;
+            parent-> left = NULL;
         } else {
-	        parent-> right = NULL;
-	}
-    // case 2: one child
+            parent-> right = NULL;
+        }
+        // case 2: one child
     } else if (NULL == r_node-> left) {
         if (item < parent->data) {
-	        parent-> left = r_node-> right;
+            parent-> left = r_node-> right;
         } else {
-	        parent-> right = r_node-> right;
-	}
-	delete r_node;
-    r_node = NULL;
-    --m_count;
+            parent-> right = r_node-> right;
+        }
+        delete r_node;
+        r_node = NULL;
+        --m_count;
     } else if (NULL == r_node-> right) {
         if (item < parent->data) {
-	        parent-> left = r_node-> left;
+            parent-> left = r_node-> left;
         } else {
-	        parent-> right = r_node-> left;
-	}
-	delete r_node;
-    r_node = NULL;
-    --m_count;
-    // case 3: two child
+            parent-> right = r_node-> left;
+        }
+        delete r_node;
+        r_node = NULL;
+        --m_count;
+        // case 3: two child
     } else {
         node<T>* tmp = left_right(r_node->left);
         if (r_node->data < parent->data) {
@@ -402,7 +402,7 @@ void BT<T>::remove_helper(node<T>* root, node<T>* parent, T item, node<T>* r_nod
     }
 }
 
-template <typename T>
+    template <typename T>
 void BT<T>::remove(T item)
 {
     std::cout << "Remove "<< item;
